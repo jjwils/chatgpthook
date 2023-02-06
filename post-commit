@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# extract the code changes in the commit
+code_changes=$(git log -1 -p)
+
+# print the code changes that start with single +, with the + removed
+filtered=$(echo "$code_changes" | awk '/^\+[^+]/ {print substr($0, 2)}')
+
+echo The code changes were...
+echo $filtered
+
+result=$(node chatgpt.js "$filtered")
+echo Try this for the the implementation
+echo $result
+
+
+
